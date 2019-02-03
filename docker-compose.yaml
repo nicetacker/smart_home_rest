@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+    redis:
+        image: redis
+        ports:
+            - "6379:6379"
+        volumes:
+            - ./data/redis:/data
+        command: redis-server --appendonly yes
+    rest:
+        build: "rest"
+        network_mode: "host"
+        volumes:
+            - ./rest:/app
+        ports:
+            - "8000:8000"
+        depends_on:
+            -  redis
+    bot:
+        network_mode: "host"
+        build: "bot"
+        volumes:
+            - ./bot:/app
+        depends_on:
+            -  rest
+        environment:
+            - SLACK_TOKEN=xoxb-YOUR_TOKEN_HERE
+

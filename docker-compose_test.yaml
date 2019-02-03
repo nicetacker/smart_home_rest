@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+    rest:
+        build: "rest"
+        network_mode: "host"
+        volumes:
+            - ./rest:/app
+        environment:
+            - TEST=1
+        ports:
+            - "8000:8000"
+        depends_on:
+            -  redis
+    redis:
+        image: redis
+        ports:
+            - "6379:6379"

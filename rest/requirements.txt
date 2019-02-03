@@ -1,0 +1,7 @@
+falcon
+gunicorn
+broadlink
+pytest
+redis
+requests
+jsonschema
